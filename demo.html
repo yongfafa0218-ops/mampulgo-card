@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>맘풀고 웜업 · 데모</title>
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#F1EFEB;
+    font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",-apple-system,sans-serif;color:#22252B;}
+  .wrap{max-width:900px;margin:0 auto;padding:30px 20px 60px;}
+  header{text-align:center;padding:16px 0 24px;}
+  .bdg{display:inline-block;background:#FDF2ED;color:#E8734A;font-size:11.5px;font-weight:800;
+    padding:6px 14px;border-radius:999px;margin-bottom:14px;}
+  h1{font-size:26px;font-weight:800;margin:0 0 10px;letter-spacing:-.7px;}
+  header p{color:#6B7280;font-size:14px;margin:0;line-height:1.7;}
+  .tabs{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
+  .tab{border:1.5px solid #E3E0DA;background:#fff;border-radius:999px;padding:9px 16px;
+    font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;color:#6B7280;transition:.16s;}
+  .tab.on{background:#22252B;border-color:#22252B;color:#fff;}
+  .namebar{display:flex;gap:8px;align-items:center;justify-content:center;margin-bottom:20px;flex-wrap:wrap;}
+  .namebar input{border:1.5px solid #E3E0DA;border-radius:10px;padding:10px 12px;font-size:14px;
+    font-family:inherit;width:130px;outline:none;background:#fff;}
+  .namebar input:focus{border-color:#E8734A;}
+  .namebar span{color:#9CA3AF;font-weight:800;}
+  .namebar button{border:0;background:#22252B;color:#fff;border-radius:10px;padding:11px 18px;
+    font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit;}
+  .stage{display:flex;justify-content:center;}
+  .phone{width:390px;max-width:100%;height:750px;background:#FAF9F7;border-radius:30px;
+    overflow:hidden;box-shadow:0 18px 50px rgba(34,37,43,.2);border:1px solid #DDD9D2;}
+  .phone iframe{width:100%;height:100%;border:0;display:block;}
+  .note{max-width:620px;margin:30px auto 0;background:#fff;border:1px solid #EAECEF;
+    border-radius:14px;padding:20px 22px;font-size:13.5px;line-height:1.85;color:#3F444E;}
+  .note b{color:#E8734A;}
+  .note code{background:#F4F2EE;padding:2px 7px;border-radius:5px;font-size:12.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="bdg">맘풀고 · 웜업 맛보기</div>
+    <h1>대본 따라 읽기</h1>
+    <p>실물 카드를 그대로 옮긴 6턴 맛보기.<br>
+       A = 엄마(코랄) · B = 지현(블루) — 이름·호칭 자유롭게 입력 가능</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab on" data-card="">🃏 카드 고르기부터</button>
+    <button class="tab" data-card="3">01 눈빛 콘택트</button>
+    <button class="tab" data-card="4">02 가위바위보</button>
+    <button class="tab" data-card="5">03 손가락 숫자</button>
+    <button class="tab" data-card="6">04 표정 짓기</button>
+    <button class="tab" data-card="7">05 손끝 텔레파시</button>
+    <button class="tab" data-card="8">06 블루투스 온기</button>
+  </div>
+
+  <div class="namebar">
+    <input id="inA" placeholder="A · 예) 엄마" value="엄마" />
+    <span>&amp;</span>
+    <input id="inB" placeholder="B · 예) 지현" value="지현" />
+    <button id="applyBtn">적용</button>
+  </div>
+
+  <div class="stage">
+    <div class="phone"><iframe id="f"></iframe></div>
+  </div>
+
+  <div class="note">
+    <b>흐름</b> — 카드 고르기 → 인트로(실물 카드 재현) → 6턴 번갈아 읽기 → 완료.<br><br>
+    <b>① 읽는 시간 확보</b> — 버튼이 3~9초간 잠깁니다. 문장이 길수록 더 오래 기다립니다.<br>
+    <b>② 직전 발화 표시</b> — 상대가 방금 한 말이 위에 남아, 내가 그 말을 받는다는 감각이 생깁니다.<br>
+    <b>③ 카드 고르기</b> — 6장을 펼쳐놓고 뽑습니다. 색상은 실물 카드에서 추출했습니다.<br><br>
+    <b>📖 규칙카드</b> — 우하단 버튼을 누르면 실물 규칙카드가 뜹니다.
+    탭하면 앞면(대화법)과 뒷면(에니어그램 감정 찾기)이 뒤집힙니다.
+    오프라인처럼 플레이 내내 손에 들고 볼 수 있습니다.<br><br>
+    ※ 진단 리포트와 한 줄 메모는 제거했습니다. 따라 읽는 훈련이라 진단할 데이터가 없고,
+    정적 호스팅이라 메모를 저장할 곳도 없기 때문입니다.
+    <b>이 앱은 어떤 데이터도 저장하지 않습니다.</b><br><br>
+    ※ 실제 배포 시엔 <code>netlify/</code> 폴더를 Netlify에 올리고 워드프레스에 iframe으로 삽입합니다.
+    자세한 절차는 <code>README.md</code> 참고.
+  </div>
+</div>
+
+<script>
+function load(card){
+  var nA = document.getElementById('inA').value.trim() || '엄마';
+  var nB = document.getElementById('inB').value.trim() || '지현';
+  var u = 'netlify/warmup.html?userA=' + encodeURIComponent(nA) +
+          '&userB=' + encodeURIComponent(nB);
+  if (card) u += '&card=' + card;
+  document.getElementById('f').src = u;
+}
+var tabs = document.querySelectorAll('.tab');
+for (var i = 0; i < tabs.length; i++) {
+  tabs[i].addEventListener('click', function () {
+    for (var j = 0; j < tabs.length; j++) tabs[j].classList.remove('on');
+    this.classList.add('on');
+    try { sessionStorage.clear(); } catch (e) {}
+    load(this.getAttribute('data-card'));
+  });
+}
+document.getElementById('applyBtn').addEventListener('click',function(){
+  try{sessionStorage.clear();}catch(e){}
+  var on=document.querySelector('.tab.on');
+  load(on?on.getAttribute('data-card'):'');
+});
+['inA','inB'].forEach(function(id){
+  document.getElementById(id).addEventListener('keydown',function(e){
+    if(e.key==='Enter') document.getElementById('applyBtn').click();
+  });
+});
+load('');
+</script>
+</body>
+</html>

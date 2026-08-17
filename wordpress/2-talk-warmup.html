@@ -1,0 +1,79 @@
+<!-- ============================================================
+     [워드프레스] /talk/warmup (웜업 룸)
+     ★ NETLIFY_BASE 를 본인 Netlify 주소로 수정하세요.
+     ※ 이 페이지에는 광고를 넣지 않습니다 (명세 Phase 2).
+     ============================================================ -->
+
+<div id="mpg-room">
+  <div class="mpg-room-wrap">
+    <iframe id="mpgFrame" width="100%" height="700"
+            frameborder="0" scrolling="no"
+            allow="autoplay"
+            title="맘풀고 대화 훈련"></iframe>
+  </div>
+
+  <div class="mpg-qa">
+    <h3>자주 묻는 질문</h3>
+    <details><summary>꼭 소리 내어 말해야 하나요?</summary>
+      <p>네. 맘풀고는 '읽는 훈련'이 아니라 '입 떼는 훈련'입니다. 눈으로만 읽으면 효과가 거의 없습니다. 작게라도 소리 내어 말한 뒤 버튼을 눌러주세요.</p></details>
+    <details><summary>한 화면을 둘이 같이 봐야 하나요?</summary>
+      <p>네. 휴대폰 한 대를 가운데 두고 마주 앉아 진행하는 방식입니다. 화면 색이 <b>주황색</b>이면 A님, <b>파란색</b>이면 B님 차례입니다.</p></details>
+    <details><summary>문장이 어색하면 바꿔 말해도 되나요?</summary>
+      <p>웜업에서는 <b>그대로 읽어주세요.</b> 내 말로 바꾸려는 순간 머뭇거리게 되고, 그게 대화를 막습니다. 지금은 '입을 떼는 것'만이 목표입니다.</p></details>
+    <details><summary>다 하고 나면 뭘 하나요?</summary>
+      <p>웜업은 맛보기입니다. 실제 훈련은 <b>맘풀고 오프라인 카드</b>로 이어집니다. 카드에는 감정을 직접 고르고 표현하는 단계까지 담겨 있습니다.</p></details>
+    <details><summary>대화 내용이 어딘가 저장되나요?</summary>
+      <p><b>아무것도 저장되지 않습니다.</b> 두 분이 나눈 이야기는 그 자리에서만 존재합니다. 서버로 전송되는 내용도 없습니다.</p></details>
+    <details><summary>중간에 새로고침하면 처음부터인가요?</summary>
+      <p>아닙니다. 같은 브라우저에서는 진행하던 턴이 복구됩니다.</p></details>
+  </div>
+</div>
+
+<style>
+#mpg-room{max-width:520px;margin:0 auto;
+  font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",-apple-system,sans-serif;color:#1F2430;}
+.mpg-room-wrap{border-radius:20px;overflow:hidden;box-shadow:0 8px 30px rgba(31,36,48,.12);background:#fff;}
+#mpgFrame{display:block;border:0;}
+.mpg-qa{margin-top:26px;padding:0 4px 8px;}
+.mpg-qa h3{font-size:16px;font-weight:800;margin:0 0 12px;}
+.mpg-qa details{background:#fff;border:1px solid #E8EBF0;border-radius:12px;padding:13px 15px;margin-bottom:8px;}
+.mpg-qa summary{font-size:14px;font-weight:700;cursor:pointer;list-style:none;}
+.mpg-qa summary::-webkit-details-marker{display:none;}
+.mpg-qa summary::after{content:'+';float:right;color:#8A91A0;font-weight:800;}
+.mpg-qa details[open] summary::after{content:'−';}
+.mpg-qa p{font-size:13.5px;line-height:1.7;color:#5A6270;margin:10px 0 0;word-break:keep-all;}
+</style>
+
+<script>
+(function(){
+  /* ★ Netlify 배포 후 받은 주소로 이 한 줄만 수정하세요 */
+  var NETLIFY_BASE = 'https://your-app.netlify.app';
+
+  function qp(k){ return new URLSearchParams(window.location.search).get(k) || ''; }
+
+  var a = qp('userA'), b = qp('userB');
+  /* 파라미터가 없으면 세션 복구 */
+  try{
+    if(!a) a = sessionStorage.getItem('mpg_a') || '';
+    if(!b) b = sessionStorage.getItem('mpg_b') || '';
+  }catch(e){}
+
+  var src = NETLIFY_BASE + '/warmup.html'
+          + '?userA=' + encodeURIComponent(a)
+          + '&userB=' + encodeURIComponent(b);
+
+  var card = qp('card');
+  if(card) src += '&card=' + encodeURIComponent(card);
+
+  document.getElementById('mpgFrame').src = src;
+
+  /* 모바일에서 화면 높이에 맞춰 iframe 높이 보정 */
+  function fit(){
+    var f = document.getElementById('mpgFrame');
+    var h = Math.max(560, Math.min(760, window.innerHeight - 120));
+    if(window.innerWidth <= 560) f.style.height = h + 'px';
+    else f.style.height = '700px';
+  }
+  fit(); window.addEventListener('resize', fit);
+})();
+</script>
